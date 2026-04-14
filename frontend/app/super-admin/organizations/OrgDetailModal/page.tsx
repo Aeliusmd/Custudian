@@ -3,8 +3,8 @@
 import type { Organization } from '../types';
 
 type OrgDetailModalProps = {
-  org: Organization;
-  onClose: () => void;
+  org?: Organization;
+  onClose?: () => void;
 };
 
 const statusColors: Record<Organization['status'], string> = {
@@ -38,6 +38,19 @@ const docColorClass = (pct: number) => {
 };
 
 export default function OrgDetailModal({ org, onClose }: OrgDetailModalProps) {
+  if (!org || !onClose) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6 bg-[#f8f9fb]">
+        <div className="bg-white border border-brand-border rounded-xl p-6 max-w-md w-full text-center">
+          <h1 className="font-outfit font-semibold text-brand-navy text-lg">Organization Details</h1>
+          <p className="text-sm text-brand-muted mt-2">
+            This view is a modal component and should be opened from the Organizations page.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const docPct = Math.round((org.docUsed / org.docTotal) * 100);
   const usageColor = docColorClass(docPct);
   const usageTextColor = usageColor.split(' ')[1];
