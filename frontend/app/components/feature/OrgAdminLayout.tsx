@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
@@ -87,9 +88,14 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
       <aside className={`${collapsed ? 'w-16' : 'w-60'} flex-shrink-0 bg-white border-r border-gray-200 flex flex-col transition-all duration-200 overflow-hidden`}>
         {/* Logo */}
         <div className={`flex items-center gap-3 px-4 py-4 border-b border-gray-100 ${collapsed ? 'justify-center' : ''}`}>
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#0097B2]">
-            <i className="ri-file-shield-2-fill text-white text-lg" />
-          </div>
+         <Image
+                     src="/images/DIV-5.png"
+                     alt="Custodox logo"
+                     width={36}
+                     height={36}
+                     className="w-9 h-9 rounded-xl object-cover flex-shrink-0"
+                     priority
+                   />
           {!collapsed && (
             <div>
               <div className="font-outfit font-bold text-[#1a2340] text-base tracking-wide whitespace-nowrap">
