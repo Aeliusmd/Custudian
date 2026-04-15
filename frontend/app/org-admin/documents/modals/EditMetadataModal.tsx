@@ -60,8 +60,6 @@ export default function EditMetadataModal({ doc, onClose, onSave }: Props) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-white rounded-2xl w-full max-w-lg mx-4 flex flex-col overflow-hidden" style={{ maxHeight: '92vh' }}>
-
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ background: `${TEAL}15` }}>
@@ -77,7 +75,6 @@ export default function EditMetadataModal({ doc, onClose, onSave }: Props) {
           </button>
         </div>
 
-        {/* Category badge */}
         <div className="px-6 pt-4">
           <div className="flex items-center gap-2 p-3 rounded-xl" style={{ background: `${TEAL}08` }}>
             <i className="ri-folder-3-line text-sm" style={{ color: TEAL }} />
@@ -88,7 +85,6 @@ export default function EditMetadataModal({ doc, onClose, onSave }: Props) {
           </div>
         </div>
 
-        {/* Fields */}
         <div className="overflow-y-auto flex-1 px-6 py-4 space-y-3">
           {fieldEntries.map(([key, val]) => (
             <div key={key} className="group/field">
@@ -122,7 +118,6 @@ export default function EditMetadataModal({ doc, onClose, onSave }: Props) {
             </div>
           ))}
 
-          {/* Add field area */}
           {addingField ? (
             <div className="border border-dashed border-[#0097B2]/40 rounded-xl p-4 bg-[#0097B2]/[0.02]">
               <p className="text-xs font-semibold text-gray-400 mb-3 flex items-center gap-1.5">
@@ -173,7 +168,6 @@ export default function EditMetadataModal({ doc, onClose, onSave }: Props) {
           )}
         </div>
 
-        {/* Footer */}
         <div className="px-6 py-4 border-t border-gray-100 flex gap-3">
           <button
             onClick={onClose}
@@ -188,11 +182,10 @@ export default function EditMetadataModal({ doc, onClose, onSave }: Props) {
             style={{ background: TEAL }}
           >
             {saving
-              ? <><i className="ri-loader-4-line animate-spin" /> Saving…</>
+              ? <><i className="ri-loader-4-line animate-spin" /> Saving...</>
               : <><i className="ri-save-line" /> Save Changes</>}
           </button>
         </div>
-
       </div>
     </div>
   );

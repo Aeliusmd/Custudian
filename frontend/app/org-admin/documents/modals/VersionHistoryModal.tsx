@@ -14,7 +14,7 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
   const [viewingVersion, setViewingVersion] = useState<string | null>(null);
   const [restoredVersion, setRestoredVersion] = useState<string | null>(null);
 
-  const handleRestore = (versionId: string, versionName: string) => {
+  const handleRestore = (_versionId: string, versionName: string) => {
     setRestoredVersion(versionName);
     setTimeout(() => setRestoredVersion(null), 2500);
   };
@@ -23,8 +23,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-white rounded-2xl w-full max-w-md mx-4 overflow-hidden" style={{ maxHeight: '90vh' }}>
-
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ background: `${TEAL}15` }}>
@@ -40,7 +38,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
           </button>
         </div>
 
-        {/* Restore success toast */}
         {restoredVersion && (
           <div className="mx-6 mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-green-50 border border-green-200">
             <i className="ri-checkbox-circle-line text-green-500" />
@@ -48,7 +45,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
           </div>
         )}
 
-        {/* Version count summary */}
         <div className="px-6 pt-4 pb-2">
           <div className="flex items-center justify-between text-xs text-gray-400">
             <span>{doc.versions.length} version{doc.versions.length !== 1 ? 's' : ''} total</span>
@@ -56,7 +52,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
           </div>
         </div>
 
-        {/* Versions list */}
         <div className="overflow-y-auto px-6 pb-6 space-y-3" style={{ maxHeight: '65vh' }}>
           {doc.versions.map((v, idx) => (
             <div
@@ -69,7 +64,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
               style={v.isCurrent ? { background: `${TEAL}06` } : { background: '#fff' }}
             >
               <div className="flex items-center gap-4 p-4">
-                {/* Version number badge */}
                 <div className="flex flex-col items-center gap-1 flex-shrink-0">
                   <div
                     className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold ${
@@ -84,7 +78,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
                   )}
                 </div>
 
-                {/* Version info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm font-semibold text-[#1a2340] truncate">{v.versionName}</span>
@@ -106,7 +99,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
                   </div>
                 </div>
 
-                {/* Actions */}
                 <div className="flex items-center gap-1.5 flex-shrink-0">
                   <button
                     onClick={() => setViewingVersion(viewingVersion === v.id ? null : v.id)}
@@ -134,7 +126,6 @@ export default function VersionHistoryModal({ doc, onClose }: Props) {
                 </div>
               </div>
 
-              {/* Inline preview panel */}
               {viewingVersion === v.id && (
                 <div className="px-4 pb-4 pt-0">
                   <div className="border border-gray-100 rounded-xl p-3 bg-white">

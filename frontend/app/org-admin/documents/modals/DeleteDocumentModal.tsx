@@ -25,17 +25,13 @@ export default function DeleteDocumentModal({ docs, onClose, onConfirm }: Props)
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-white rounded-2xl w-full max-w-sm mx-4 overflow-hidden">
-
-        {/* Red top accent */}
         <div className="h-1.5 w-full bg-red-500" />
 
         <div className="p-6 flex flex-col items-center gap-4">
-          {/* Icon */}
           <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center">
             <i className="ri-delete-bin-2-line text-3xl text-red-500" />
           </div>
 
-          {/* Text */}
           <div className="text-center">
             <h3 className="text-base font-bold text-[#1a2340] mb-2">
               {isBulk ? `Delete ${docs.length} Documents?` : 'Delete Document?'}
@@ -67,7 +63,6 @@ export default function DeleteDocumentModal({ docs, onClose, onConfirm }: Props)
             )}
           </div>
 
-          {/* Warning */}
           <div className="w-full flex items-start gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200">
             <i className="ri-alert-line text-amber-500 mt-0.5 flex-shrink-0" />
             <p className="text-xs text-amber-700">
@@ -75,7 +70,6 @@ export default function DeleteDocumentModal({ docs, onClose, onConfirm }: Props)
             </p>
           </div>
 
-          {/* Actions */}
           <div className="flex gap-3 w-full">
             <button
               onClick={onClose}
@@ -90,7 +84,7 @@ export default function DeleteDocumentModal({ docs, onClose, onConfirm }: Props)
               className="flex-1 px-4 py-2.5 rounded-xl bg-red-500 text-white text-sm font-semibold hover:bg-red-600 active:bg-red-700 transition-colors whitespace-nowrap disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2"
             >
               {deleting
-                ? <><i className="ri-loader-4-line animate-spin" /> Deleting…</>
+                ? <><i className="ri-loader-4-line animate-spin" /> Deleting...</>
                 : <><i className="ri-delete-bin-line" /> Delete{isBulk ? ` ${docs.length} Files` : ''}</>}
             </button>
           </div>

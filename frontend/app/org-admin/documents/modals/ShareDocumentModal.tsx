@@ -106,8 +106,6 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-white rounded-2xl w-full max-w-md mx-4 overflow-hidden">
-
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ background: `${TEAL}15` }}>
@@ -131,11 +129,8 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
         </div>
 
         <div className="px-6 py-5">
-
-          {/* ─── Stage: Form ─── */}
           {stage === 'form' && (
             <div className="space-y-5">
-              {/* Email chips */}
               <div>
                 <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-2">
                   Recipient Emails
@@ -171,7 +166,7 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
                     onChange={(e) => { setEmailInput(e.target.value); setEmailError(''); }}
                     onKeyDown={handleEmailKeyDown}
                     onBlur={() => emailInput.trim() && addEmail(emailInput)}
-                    placeholder={emails.length === 0 ? 'Type email and press Enter…' : ''}
+                    placeholder={emails.length === 0 ? 'Type email and press Enter...' : ''}
                     className="flex-1 min-w-[120px] outline-none text-sm text-[#1a2340] bg-transparent"
                   />
                 </div>
@@ -183,7 +178,6 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
                 <p className="text-xs text-gray-400 mt-1">Press Enter or comma after each email</p>
               </div>
 
-              {/* Session Duration */}
               <div>
                 <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-2">
                   Session Duration
@@ -207,7 +201,6 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
                 </div>
               </div>
 
-              {/* Security info */}
               <div className="flex items-start gap-3 p-3.5 rounded-xl border" style={{ background: `${TEAL}08`, borderColor: `${TEAL}30` }}>
                 <i className="ri-shield-check-line mt-0.5 flex-shrink-0 text-base" style={{ color: TEAL }} />
                 <p className="text-xs text-gray-600 leading-relaxed">
@@ -222,13 +215,12 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
                 style={{ background: TEAL }}
               >
                 {generating
-                  ? <><i className="ri-loader-4-line animate-spin" /> Generating Link…</>
+                  ? <><i className="ri-loader-4-line animate-spin" /> Generating Link...</>
                   : <><i className="ri-links-line" /> Create Link</>}
               </button>
             </div>
           )}
 
-          {/* ─── Stage: Link Generated ─── */}
           {stage === 'link' && (
             <div className="space-y-4">
               <div className="text-center py-2">
@@ -239,7 +231,6 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
                 <p className="text-xs text-gray-400 mt-1">Link expires in {durationLabel} · OTP required to access</p>
               </div>
 
-              {/* Link box */}
               <div className="flex items-center gap-2 p-3 rounded-xl border border-gray-200 bg-gray-50">
                 <i className="ri-lock-2-line text-gray-400 flex-shrink-0" />
                 <span className="text-xs text-gray-600 flex-1 truncate font-mono">{generatedLink}</span>
@@ -253,7 +244,6 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
                 </button>
               </div>
 
-              {/* Recipients */}
               <div className="space-y-1.5">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Sent to</p>
                 {emails.map((em) => (
@@ -277,10 +267,8 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
             </div>
           )}
 
-          {/* ─── Stage: OTP (Receiver view) ─── */}
           {stage === 'otp' && (
             <div className="space-y-5">
-              {/* Preview badge */}
               <div className="flex items-start gap-2.5 p-3 rounded-xl border border-amber-200 bg-amber-50">
                 <i className="ri-eye-line text-amber-500 mt-0.5 flex-shrink-0" />
                 <p className="text-xs text-amber-700 leading-relaxed">
@@ -296,7 +284,6 @@ export default function ShareDocumentModal({ docs, onClose }: Props) {
                 <p className="text-xs text-gray-400 mt-1">A 6-digit OTP was sent to your email address</p>
               </div>
 
-              {/* OTP inputs */}
               <div className="flex justify-center gap-2" onPaste={handleOtpPaste}>
                 {otp.map((d, i) => (
                   <input

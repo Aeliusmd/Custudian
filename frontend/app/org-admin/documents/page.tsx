@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { MOCK_DOCUMENTS, MOCK_UPLOADERS, MOCK_CATEGORIES, type DocumentRecord } from '../../../mocks/documents';
-import EditMetadataModal from './EditMetadataModal/page';
-import ShareDocumentModal from './ShareDocumentModal/page';
-import VersionHistoryModal from './VersionHistoryModal/page';
-import DeleteDocumentModal from './DeleteDocumentModal/page';
+import EditMetadataModal from './modals/EditMetadataModal';
+import ShareDocumentModal from './modals/ShareDocumentModal';
+import VersionHistoryModal from './modals/VersionHistoryModal';
+import DeleteDocumentModal from './modals/DeleteDocumentModal';
 
 const TEAL = '#0097B2';
 
