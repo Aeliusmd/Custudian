@@ -30,20 +30,20 @@ const uploadTips = [
 
 export default function UploadDocumentsPage() {
   return (
-    <div className="p-6 space-y-6">
-      <div>
+    <div className="px-4 py-5 sm:p-6 space-y-6">
+      <div className="min-w-0">
         <h1 className="font-outfit font-bold text-2xl text-[#1a2340]">Upload Documents</h1>
         <p className="text-gray-400 text-sm mt-0.5">Choose how you want to upload your documents</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl">
         {uploadModes.map((mode) => {
           const isTeal = mode.accent === TEAL;
           return (
           <Link
             key={mode.title}
             href={mode.href}
-            className="group text-left bg-white border-2 border-gray-200 hover:border-[#0097B2] rounded-2xl p-8 transition-all hover:bg-[#0097B2]/5 cursor-pointer"
+            className="group text-left bg-white border-2 border-gray-200 hover:border-[#0097B2] rounded-2xl p-5 sm:p-8 transition-all hover:bg-[#0097B2]/5 cursor-pointer"
           >
             <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-all ${isTeal ? styles.cardAccentTealBg : styles.cardAccentOrangeBg}`}>
               <i className={`${mode.icon} text-3xl ${isTeal ? styles.cardAccentTealText : styles.cardAccentOrangeText}`} />
@@ -74,7 +74,7 @@ export default function UploadDocumentsPage() {
           <i className={`ri-lightbulb-line ${styles.tipIcon}`} />
           Upload Tips
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {uploadTips.map((tip) => (
             <div key={tip.title} className="flex items-start gap-3">
               <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${styles.tipIconBg}`}>

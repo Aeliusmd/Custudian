@@ -3,14 +3,14 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  min-height: 968px;
+  min-height: 100%;
 }
 
 .uploadFrame {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px;
+  padding: 16px;
   width: 100%;
 }
 
@@ -68,12 +68,27 @@
   margin-top: 2px;
 }
 
+@media (max-width: 639px) {
+  .uploadHeaderRow {
+    align-items: flex-start;
+  }
+
+  .uploadTitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .uploadSubtitle {
+    line-height: 15px;
+  }
+}
+
 .uploadPanel {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 33px;
+  padding: 20px;
   width: 100%;
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -91,19 +106,29 @@
 }
 
 .categoryGrid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 12px;
 }
 
 .categoryCard {
   box-sizing: border-box;
-  width: 330px;
+  width: 100%;
   min-height: 74px;
   padding: 18px;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
   background: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .uploadFrame {
+    padding: 24px;
+  }
+
+  .uploadPanel {
+    padding: 33px;
+  }
 }
 
 .categoryCardSelected {

@@ -131,10 +131,10 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div className="p-6 space-y-5">
+    <div className="px-4 py-5 sm:p-6 space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between flex-wrap">
+        <div className="min-w-0">
           <h1 className="font-outfit font-bold text-2xl text-[#1a2340]">Category Management</h1>
           <p className="text-gray-400 text-sm mt-0.5">{categories.length} categories with custom metadata</p>
         </div>
@@ -149,7 +149,7 @@ export default function CategoriesPage() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {[
           { label: 'Total Categories', value: categories.length, icon: 'ri-folder-3-line', color: TEAL },
           { label: 'Total Documents', value: categories.reduce((a, c) => a + c.docCount, 0).toLocaleString(), icon: 'ri-file-text-line', color: '#16a34a' },
@@ -184,7 +184,8 @@ export default function CategoriesPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <table className="w-full">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[900px]">
           <thead className="bg-gray-50">
             <tr>
               {['Category', 'Description', 'Metadata Fields', 'Documents', 'Created', 'Actions'].map((h) => (
@@ -257,7 +258,8 @@ export default function CategoriesPage() {
               </tr>
             ))}
           </tbody>
-        </table>
+          </table>
+        </div>
         {filtered.length === 0 && (
           <div className="py-16 text-center text-gray-400 text-sm">No categories found.</div>
         )}
