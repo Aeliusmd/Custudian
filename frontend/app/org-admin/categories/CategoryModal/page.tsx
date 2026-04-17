@@ -129,14 +129,14 @@ export default function CategoryModal({ category, onClose, onSave }: Props) {
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl w-full max-w-2xl mx-4 flex flex-col max-h-[90vh] overflow-hidden">
+      <div className="relative bg-white rounded-2xl w-full max-w-2xl mx-3 sm:mx-4 flex flex-col max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 border-b border-gray-100 gap-3">
+          <div className="min-w-0">
             <h2 className="font-outfit font-bold text-lg text-[#1a2340]">{category ? 'Edit Category' : 'Create Category'}</h2>
             <p className="text-xs text-gray-400 mt-0.5">Define category details and metadata fields</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 self-start sm:self-auto">
             <button
               onClick={() => setShowPreview(!showPreview)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap"
@@ -158,7 +158,7 @@ export default function CategoryModal({ category, onClose, onSave }: Props) {
         <div className="flex-1 overflow-y-auto">
           {showPreview ? (
             /* Preview Mode */
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
                 <h3 className="font-semibold text-[#1a2340] mb-1">{name || 'Category Name'}</h3>
                 <p className="text-xs text-gray-400 mb-5">{description || 'No description'}</p>
@@ -216,7 +216,7 @@ export default function CategoryModal({ category, onClose, onSave }: Props) {
             </div>
           ) : (
             /* Edit Mode */
-            <div className="p-6 space-y-5">
+            <div className="p-4 sm:p-6 space-y-5">
               {/* Basic Info */}
               <div className="space-y-4">
                 <div>
@@ -244,8 +244,8 @@ export default function CategoryModal({ category, onClose, onSave }: Props) {
 
               {/* Metadata Builder */}
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
+                  <div className="min-w-0">
                     <h3 className="text-sm font-semibold text-[#1a2340]">Metadata Fields</h3>
                     <p className="text-xs text-gray-400 mt-0.5">Define fields that appear during document upload</p>
                   </div>
@@ -303,7 +303,7 @@ export default function CategoryModal({ category, onClose, onSave }: Props) {
                                 />
                                 {errors[`field_${idx}`] && <p className="text-[10px] text-red-400 mt-0.5">{errors[`field_${idx}`]}</p>}
                               </div>
-                              <div className="w-44">
+                              <div className="w-full sm:w-44">
                                 <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wide">Field Type</label>
                                 <select
                                   title={`Field type for ${field.name || 'metadata field'}`}
@@ -392,9 +392,9 @@ export default function CategoryModal({ category, onClose, onSave }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between gap-3">
+        <div className="px-4 sm:px-6 py-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <span className="text-xs text-gray-400">{fields.length} metadata field{fields.length !== 1 ? 's' : ''} defined</span>
-          <div className="flex gap-3">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 w-full sm:w-auto">
             <button onClick={onClose} className="px-4 py-2 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap">Cancel</button>
             <button
               onClick={handleSave}

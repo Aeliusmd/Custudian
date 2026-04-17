@@ -1,50 +1,47 @@
 "use client";
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
 
+const TEAL = '#0097B2';
+
 const navItems = [
-  { path: '/org-admin/dashboard', label: 'Dashboard', icon: 'ri-dashboard-line' },
-  { path: '/org-admin/upload-documents', label: 'Upload Documents', icon: 'ri-upload-cloud-2-line' },
-  { path: '/org-admin/categories', label: 'Category Management', icon: 'ri-folder-settings-line' },
-  { path: '/org-admin/documents', label: 'All Documents', icon: 'ri-file-list-3-line' },
-  { path: '/org-admin/users', label: 'User Management', icon: 'ri-team-line' },
-  { path: '/org-admin/search', label: 'Global Search', icon: 'ri-search-line' },
-  { path: '/org-admin/advanced-search', label: 'Advanced Search', icon: 'ri-search-eye-line' },
+  { path: '/user/dashboard', label: 'Dashboard', icon: 'ri-dashboard-line' },
+  { path: '/user/upload-documents', label: 'Upload Documents', icon: 'ri-upload-cloud-2-line' },
+  { path: '/user/documents', label: 'All Documents', icon: 'ri-file-list-3-line' },
+  { path: '/user/search', label: 'Global Search', icon: 'ri-search-line' },
+  { path: '/user/advanced-search', label: 'Advanced Search', icon: 'ri-search-eye-line' },
 ];
 
 const settingsItems = [
-  { path: '/org-admin/settings/profile', label: 'Admin Profile', icon: 'ri-user-settings-line' },
-  { path: '/org-admin/settings/activity', label: 'Activity Log', icon: 'ri-list-check-2' },
-  { path: '/org-admin/settings/notifications', label: 'Notification Mgmt', icon: 'ri-notification-3-line' },
+  { path: '/user/settings/profile', label: 'My Profile', icon: 'ri-user-settings-line' },
+  { path: '/user/settings/activity', label: 'Activity Log', icon: 'ri-list-check-2' },
+  { path: '/user/settings/notifications', label: 'Notifications', icon: 'ri-notification-3-line' },
 ];
 
 const pageMeta: Record<string, { title: string; icon: string }> = {
-  '/org-admin/dashboard': { title: 'Dashboard', icon: 'ri-dashboard-line' },
-  '/org-admin/upload-documents': { title: 'Upload Documents', icon: 'ri-upload-cloud-2-line' },
-  '/org-admin/categories': { title: 'Category Management', icon: 'ri-folder-settings-line' },
-  '/org-admin/documents': { title: 'All Documents', icon: 'ri-file-list-3-line' },
-  '/org-admin/users': { title: 'User Management', icon: 'ri-team-line' },
-  '/org-admin/search': { title: 'Global Search', icon: 'ri-search-line' },
-  '/org-admin/advanced-search': { title: 'Advanced Search', icon: 'ri-search-eye-line' },
-  '/org-admin/settings/profile': { title: 'Admin Profile', icon: 'ri-user-settings-line' },
-  '/org-admin/settings/activity': { title: 'Activity Log', icon: 'ri-list-check-2' },
-  '/org-admin/settings/notifications': { title: 'Notification Management', icon: 'ri-notification-3-line' },
+  '/user/dashboard': { title: 'Dashboard', icon: 'ri-dashboard-line' },
+  '/user/upload-documents': { title: 'Upload Documents', icon: 'ri-upload-cloud-2-line' },
+  '/user/documents': { title: 'All Documents', icon: 'ri-file-list-3-line' },
+  '/user/search': { title: 'Global Search', icon: 'ri-search-line' },
+  '/user/advanced-search': { title: 'Advanced Search', icon: 'ri-search-eye-line' },
+  '/user/settings/profile': { title: 'Settings', icon: 'ri-settings-3-line' },
+  '/user/settings/activity': { title: 'Settings', icon: 'ri-settings-3-line' },
+  '/user/settings/notifications': { title: 'Settings', icon: 'ri-settings-3-line' },
 };
 
 const notifications = [
-  { id: 1, text: '12 new documents uploaded today', time: '5 min ago', unread: true },
-  { id: 2, text: 'Storage usage at 82% — consider upgrading', time: '1 hr ago', unread: true },
-  { id: 3, text: 'User James Whitfield added to Legal team', time: '3 hr ago', unread: false },
+  { id: 1, text: '5 new documents added in Legal Contracts', time: '10 min ago', unread: true },
+  { id: 2, text: 'Your document was approved by admin', time: '2 hr ago', unread: true },
+  { id: 3, text: 'Shared document "Q1 Report 2026" is now available', time: '5 hr ago', unread: false },
 ];
 
-type OrgAdminLayoutProps = {
+type UserLayoutProps = {
   children: ReactNode;
 };
 
-export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
+export default function UserLayout({ children }: UserLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [showNotifs, setShowNotifs] = useState(false);
@@ -55,12 +52,12 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
   const router = useRouter();
 
   const isSettingsActive = settingsItems.some((s) => pathname.startsWith(s.path));
-  const current = pageMeta[pathname] ?? { title: 'Organization Admin', icon: 'ri-building-2-line' };
+  const current = pageMeta[pathname] ?? { title: 'User Portal', icon: 'ri-user-line' };
   const unreadCount = notifications.filter((n) => n.unread).length;
 
   const handleSignOut = () => {
     setShowSignOutModal(false);
-    router.push('/auth/signin');
+    router.push('/sign-in');
   };
 
   const toggleSidebar = () => {
@@ -106,20 +103,15 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
       <aside className={`${collapsed ? 'md:w-16' : 'md:w-60'} w-60 md:static fixed inset-y-0 left-0 z-[90] flex-shrink-0 bg-white border-r border-gray-200 flex flex-col transition-transform duration-200 overflow-hidden ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
         {/* Logo */}
         <div className={`flex items-center gap-3 px-4 py-4 border-b border-gray-100 ${collapsed ? 'justify-center' : ''}`}>
-         <Image
-                     src="/images/DIV-5.png"
-                     alt="Custodox logo"
-                     width={36}
-                     height={36}
-                     className="w-9 h-9 rounded-xl object-cover flex-shrink-0"
-                     priority
-                   />
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: TEAL }}>
+            <i className="ri-file-shield-2-fill text-white text-lg" />
+          </div>
           {!collapsed && (
             <div>
               <div className="font-outfit font-bold text-[#1a2340] text-base tracking-wide whitespace-nowrap">
-                Custo<span className="text-[#0097B2]">dox</span>
+                Custo<span style={{ color: TEAL }}>dox</span>
               </div>
-              <div className="text-[10px] font-medium whitespace-nowrap text-[#0097B2]">Organization Admin</div>
+              <div className="text-[10px] font-medium whitespace-nowrap" style={{ color: TEAL }}>User Portal</div>
             </div>
           )}
         </div>
@@ -135,8 +127,9 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
                 onClick={handleNavSelect}
                 title={collapsed ? item.label : undefined}
                 className={`flex items-center gap-3 mx-2 px-3 py-2.5 rounded-lg transition-all duration-150 whitespace-nowrap mb-0.5 ${
-                  active ? 'text-white bg-[#0097B2]' : 'text-gray-500 hover:bg-gray-50 hover:text-[#1a2340]'
+                  active ? 'text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-[#1a2340]'
                 } ${collapsed ? 'justify-center' : ''}`}
+                style={active ? { background: TEAL } : {}}
               >
                 <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                   <i className={`${item.icon} text-base`} />
@@ -152,8 +145,9 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
               onClick={() => setSettingsOpen(!settingsOpen)}
               title={collapsed ? 'Settings' : undefined}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 whitespace-nowrap ${
-                isSettingsActive ? 'text-white bg-[#0097B2]' : 'text-gray-500 hover:bg-gray-50 hover:text-[#1a2340]'
+                isSettingsActive ? 'text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-[#1a2340]'
               } ${collapsed ? 'justify-center' : ''}`}
+              style={isSettingsActive ? { background: TEAL } : {}}
             >
               <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                 <i className="ri-settings-3-line text-base" />
@@ -168,15 +162,16 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
             {settingsOpen && !collapsed && (
               <div className="ml-4 mt-0.5 space-y-0.5">
                 {settingsItems.map((s) => {
-                  const active = pathname === s.path;
+                      const active = pathname === s.path;
                   return (
                     <Link
                       key={s.path}
                       href={s.path}
-                      onClick={handleNavSelect}
+                          onClick={handleNavSelect}
                       className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-150 whitespace-nowrap text-sm ${
-                        active ? 'font-semibold text-[#0097B2]' : 'text-gray-400 hover:bg-gray-50 hover:text-[#1a2340]'
+                        active ? 'font-semibold' : 'text-gray-400 hover:bg-gray-50 hover:text-[#1a2340]'
                       }`}
+                      style={active ? { color: TEAL } : {}}
                     >
                       <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                         <i className={`${s.icon} text-sm`} />
@@ -193,13 +188,13 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
         {/* Bottom user */}
         <div className="border-t border-gray-100 py-3 px-2">
           <div className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-all ${collapsed ? 'justify-center' : ''}`}>
-            <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-[#0097B2]">
-              <span className="text-white text-xs font-bold">JW</span>
+            <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#d97706' }}>
+              <span className="text-white text-xs font-bold">AH</span>
             </div>
             {!collapsed && (
               <div className="min-w-0">
-                <div className="text-xs font-semibold text-[#1a2340] truncate">James Whitfield</div>
-                <div className="text-[10px] font-medium truncate text-[#0097B2]">Org Admin</div>
+                <div className="text-xs font-semibold text-[#1a2340] truncate">Alex Harrison</div>
+                <div className="text-[10px] font-medium truncate text-amber-600">User</div>
               </div>
             )}
           </div>
@@ -223,7 +218,7 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
             <span className="text-gray-400">Custodox</span>
             <span className="text-gray-300">/</span>
             <div className="flex items-center gap-1.5 text-[#1a2340] font-medium min-w-0">
-              <i className={`${current.icon} text-sm text-[#0097B2]`} />
+              <i className={`${current.icon} text-sm`} style={{ color: TEAL }} />
               <span className="truncate max-w-[180px] sm:max-w-none">{current.title}</span>
             </div>
           </div>
@@ -232,8 +227,9 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
 
           {/* Quick Upload CTA */}
           <Link
-            href="/org-admin/upload-documents"
-            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap bg-[#0097B2]"
+            href="/user/upload-documents"
+            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap"
+            style={{ background: TEAL }}
           >
             <i className="ri-upload-cloud-2-line text-sm" />
             Upload Document
@@ -254,7 +250,7 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
               <div className="absolute right-0 top-10 w-80 bg-white border border-gray-200 rounded-xl overflow-hidden z-50">
                 <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
                   <span className="font-semibold text-[#1a2340] text-sm">Notifications</span>
-                  <button className="text-xs hover:underline text-[#0097B2]">Mark all read</button>
+                  <button className="text-xs hover:underline" style={{ color: TEAL }}>Mark all read</button>
                 </div>
                 {notifications.map((n) => (
                   <div key={n.id} className={`px-4 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 cursor-pointer ${n.unread ? 'bg-[#0097B2]/5' : ''}`}>
@@ -272,23 +268,23 @@ export default function OrgAdminLayout({ children }: OrgAdminLayoutProps) {
               onClick={() => { setShowUserMenu(!showUserMenu); setShowNotifs(false); }}
               className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-gray-100 transition-all"
             >
-              <div className="w-7 h-7 rounded-full flex items-center justify-center bg-[#0097B2]">
-                <span className="text-white text-xs font-bold">JW</span>
+              <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: '#d97706' }}>
+                <span className="text-white text-xs font-bold">AH</span>
               </div>
-              <span className="text-sm font-medium text-[#1a2340] hidden md:block">James Whitfield</span>
+              <span className="text-sm font-medium text-[#1a2340] hidden md:block">Alex Harrison</span>
               <i className="ri-arrow-down-s-line text-gray-400 text-sm" />
             </button>
             {showUserMenu && (
               <div className="absolute right-0 top-10 w-48 bg-white border border-gray-200 rounded-xl overflow-hidden z-50">
                 <div className="px-4 py-3 border-b border-gray-100">
-                  <div className="text-sm font-semibold text-[#1a2340]">James Whitfield</div>
-                  <div className="text-xs text-[#0097B2]">Org Admin</div>
+                  <div className="text-sm font-semibold text-[#1a2340]">Alex Harrison</div>
+                  <div className="text-xs text-amber-600">User</div>
                 </div>
-                <Link href="/org-admin/settings/profile" onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#1a2340] transition-colors">
+                <Link href="/user/settings/profile" onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#1a2340] transition-colors">
                   <i className="ri-user-line" />
-                  Admin Profile
+                  My Profile
                 </Link>
-                <Link href="/org-admin/settings/activity" onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#1a2340] transition-colors">
+                <Link href="/user/settings/activity" onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#1a2340] transition-colors">
                   <i className="ri-list-check-2" />
                   Activity Log
                 </Link>

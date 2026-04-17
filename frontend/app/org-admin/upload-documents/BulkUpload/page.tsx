@@ -265,7 +265,7 @@ export default function BulkUpload() {
             <p className="text-sm text-gray-400">Download the template, fill in metadata for each document, then upload it</p>
           </div>
           <div className="bg-white border border-gray-200 rounded-xl p-5">
-            <div className="flex items-start gap-4 mb-5">
+            <div className="flex flex-col sm:flex-row items-start gap-4 mb-5">
               <div className={`${styles.filePreviewIconBg} w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0`}>
                 <i className={`ri-file-excel-2-line text-2xl ${styles.filePreviewIcon}`} aria-hidden="true" />
               </div>
@@ -440,7 +440,7 @@ export default function BulkUpload() {
             <strong className="text-[#1a2340]">{files.length} documents</strong> have been successfully uploaded
           </p>
           <p className="text-xs text-gray-400">Category: {selectedCat?.name} · {privacy}</p>
-          <div className="flex gap-3 justify-center mt-8">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <button
               type="button"
               onClick={() => router.push('/org-admin/upload-documents')}
@@ -468,11 +468,11 @@ export default function BulkUpload() {
       )}
 
       {step < 5 && (
-        <div className="flex items-center justify-between mt-8 pt-5 border-t border-gray-100">
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-8 pt-5 border-t border-gray-100">
           <button
             type="button"
             onClick={() => (step === 0 ? router.push('/org-admin/upload-documents') : setStep((current) => current - 1))}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap"
           >
             <i className="ri-arrow-left-line" aria-hidden="true" />
             {step === 0 ? 'Cancel' : 'Back'}
@@ -481,7 +481,7 @@ export default function BulkUpload() {
             <button
               type="button"
               onClick={next}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap bg-[#0097B2] hover:bg-[#007d95]"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap bg-[#0097B2] hover:bg-[#007d95]"
             >
               Continue
               <i className="ri-arrow-right-line" aria-hidden="true" />
@@ -491,7 +491,7 @@ export default function BulkUpload() {
               type="button"
               onClick={handleFinalUpload}
               disabled={uploading}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap disabled:opacity-70 bg-[#0097B2] hover:bg-[#007d95]"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap disabled:opacity-70 bg-[#0097B2] hover:bg-[#007d95]"
             >
               {uploading ? (
                 <><i className="ri-loader-4-line animate-spin" aria-hidden="true" />Uploading {files.length} files...</>

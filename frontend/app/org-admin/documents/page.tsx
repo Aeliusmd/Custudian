@@ -112,10 +112,34 @@ export default function AllDocumentsPage() {
 
   const hasFilters = filterCategory || filterVisibility || filterUploader || filterDateFrom || filterDateTo || search;
 
+  const getPreviewTone = (fileType: string) => {
+    if (fileType === 'PDF') {
+      return {
+        accent: '#ef4444',
+        tint: 'from-red-50 to-rose-50',
+        badge: 'bg-red-100 text-red-600',
+      };
+    }
+
+    if (fileType === 'XLSX') {
+      return {
+        accent: '#16a34a',
+        tint: 'from-emerald-50 to-lime-50',
+        badge: 'bg-emerald-100 text-emerald-700',
+      };
+    }
+
+    return {
+      accent: TEAL,
+      tint: 'from-slate-50 to-white',
+      badge: 'bg-slate-100 text-slate-600',
+    };
+  };
+
   return (
-    <div className="p-6 min-h-full font-inter" onClick={() => setActiveMenu(null)}>
+    <div className="px-4 py-5 sm:p-6 min-h-full font-inter" onClick={() => setActiveMenu(null)}>
       {/* Toast */}
-      <div className="fixed top-5 right-5 z-[999] flex flex-col gap-2 pointer-events-none">
+      <div className="fixed top-4 right-4 left-4 sm:left-auto sm:top-5 sm:right-5 z-[999] flex flex-col gap-2 pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
@@ -130,8 +154,8 @@ export default function AllDocumentsPage() {
       </div>
 
       {/* Page Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <div className="min-w-0">
           <h1 className="text-xl font-bold text-[#1a2340]">All Documents</h1>
           <p className="text-sm text-gray-400 mt-0.5">{documents.length} total documents</p>
         </div>
@@ -150,9 +174,9 @@ export default function AllDocumentsPage() {
 
       {/* Search + Filters */}
       <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
-        <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-1 xl:grid-cols-6 gap-3">
           {/* Search */}
-          <div className="flex items-center gap-2 flex-1 min-w-[200px] border border-gray-200 rounded-lg px-3 py-2">
+          <div className="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2 xl:col-span-2">
             <i className="ri-search-line text-gray-400 text-sm" />
             <input
               placeholder="Search documents..."
@@ -172,7 +196,7 @@ export default function AllDocumentsPage() {
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
             title="Filter by category"
-            className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white cursor-pointer min-w-[150px]"
+            className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white cursor-pointer w-full"
           >
             <option value="">All Categories</option>
             {MOCK_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -183,7 +207,7 @@ export default function AllDocumentsPage() {
             value={filterVisibility}
             onChange={(e) => setFilterVisibility(e.target.value)}
             title="Filter by visibility"
-            className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white cursor-pointer min-w-[130px]"
+            className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white cursor-pointer w-full"
           >
             <option value="">All Visibility</option>
             <option value="Public">Public</option>
@@ -195,21 +219,21 @@ export default function AllDocumentsPage() {
             value={filterUploader}
             onChange={(e) => setFilterUploader(e.target.value)}
             title="Filter by uploader"
-            className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white cursor-pointer min-w-[160px]"
+            className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white cursor-pointer w-full"
           >
             <option value="">All Uploaders</option>
             {MOCK_UPLOADERS.map((u) => <option key={u} value={u}>{u}</option>)}
           </select>
 
           {/* Date range */}
-          <div className="flex items-center gap-1.5">
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-1.5 xl:col-span-2">
             <input
               type="date"
               value={filterDateFrom}
               onChange={(e) => setFilterDateFrom(e.target.value)}
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white cursor-pointer"
             />
-            <span className="text-gray-400 text-xs">to</span>
+            <span className="text-gray-400 text-xs justify-self-center">to</span>
             <input
               type="date"
               value={filterDateTo}
@@ -223,12 +247,12 @@ export default function AllDocumentsPage() {
       {/* Bulk Action Bar */}
       {selected.size > 0 && (
         <div
-          className="flex items-center gap-3 px-4 py-3 rounded-xl mb-4 text-white"
+          className="flex flex-wrap items-center gap-3 px-4 py-3 rounded-xl mb-4 text-white"
           style={{ background: TEAL }}
         >
           <i className="ri-checkbox-multiple-line" />
           <span className="text-sm font-semibold">{selected.size} document{selected.size > 1 ? 's' : ''} selected</span>
-          <div className="flex-1" />
+          <div className="hidden sm:flex flex-1" />
           <button
             onClick={() => { setModal('share'); setActiveDoc(null); }}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
@@ -256,7 +280,7 @@ export default function AllDocumentsPage() {
       {/* Table */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[1100px]">
             <thead>
               <tr className="border-b border-gray-100">
                 <th className="w-10 px-4 py-3 text-left">
@@ -288,7 +312,7 @@ export default function AllDocumentsPage() {
                 filtered.map((doc) => (
                   <tr
                     key={doc.id}
-                    className="border-b border-gray-50 last:border-0 hover:bg-[#0097B2]/[0.03] transition-all cursor-default group relative"
+                    className="border-b border-gray-50 last:border-0 hover:bg-[#0097B2]/[0.03] transition-all cursor-default group/doc relative"
                   >
                     <td className="px-4 py-3.5">
                       <input
@@ -300,13 +324,63 @@ export default function AllDocumentsPage() {
                       />
                     </td>
                     <td className="px-4 py-3.5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${TEAL}15` }}>
-                          <i className="ri-file-pdf-2-line text-sm" style={{ color: TEAL }} />
+                      <div className="relative inline-flex max-w-full group/name">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${TEAL}15` }}>
+                            <i className={`text-sm ${doc.fileType === 'XLSX' ? 'ri-file-excel-2-line' : 'ri-file-pdf-2-line'}`} style={{ color: TEAL }} />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-sm font-medium text-[#1a2340] truncate max-w-[220px]">{doc.name}</div>
+                            <div className="text-xs text-gray-400">{doc.fileSize} · {doc.fileType}</div>
+                          </div>
                         </div>
-                        <div className="min-w-0">
-                          <div className="text-sm font-medium text-[#1a2340] truncate max-w-[220px]">{doc.name}</div>
-                          <div className="text-xs text-gray-400">{doc.fileSize} · {doc.fileType}</div>
+
+                        <div className="pointer-events-none absolute left-0 top-full z-30 mt-3 w-44 origin-top-left opacity-0 invisible translate-y-1 transition-all duration-150 group-hover/name:opacity-100 group-hover/name:visible group-hover/name:translate-y-0">
+                          <div className={`aspect-square w-full overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br ${getPreviewTone(doc.fileType).tint} shadow-xl`}>
+                            <div className="flex h-full flex-col p-3">
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0 text-white shadow-sm" style={{ background: getPreviewTone(doc.fileType).accent }}>
+                                  <i className={doc.fileType === 'XLSX' ? 'ri-file-excel-2-line text-base' : 'ri-file-pdf-2-line text-base'} />
+                                </div>
+                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${getPreviewTone(doc.fileType).badge}`}>
+                                  {doc.fileType}
+                                </span>
+                              </div>
+
+                              <div className="mt-3 flex-1 rounded-xl border border-white/80 bg-white/80 p-3 shadow-sm backdrop-blur-sm">
+                                {doc.fileType === 'XLSX' ? (
+                                  <div className="grid grid-cols-3 gap-1.5">
+                                    {Array.from({ length: 9 }).map((_, index) => (
+                                      <div
+                                        key={index}
+                                        className={`aspect-square rounded-md ${index % 3 === 0 ? 'bg-emerald-100' : index % 2 === 0 ? 'bg-emerald-50' : 'bg-gray-100'}`}
+                                      />
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <div className="space-y-2">
+                                    <div className="h-2.5 w-5/6 rounded-full bg-gray-200" />
+                                    <div className="h-2.5 w-4/6 rounded-full bg-gray-100" />
+                                    <div className="h-2.5 w-full rounded-full bg-gray-100" />
+                                    <div className="mt-3 space-y-1.5 rounded-lg border border-dashed border-gray-200 bg-gray-50 p-2.5">
+                                      <div className="h-2 w-1/2 rounded-full bg-gray-200" />
+                                      <div className="h-2 w-5/6 rounded-full bg-gray-100" />
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="mt-3 space-y-1">
+                                <p className="truncate text-[11px] font-semibold text-[#1a2340]">{doc.name}</p>
+                                <p className="max-h-8 overflow-hidden text-[10px] leading-4 text-gray-500">
+                                  {Object.entries(doc.metadata)
+                                    .slice(0, 2)
+                                    .map(([key, value]) => `${key}: ${value}`)
+                                    .join(' · ')}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </td>

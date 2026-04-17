@@ -102,16 +102,16 @@ export default function SingleUpload() {
 
         <div className={styles.uploadPanel}>
           <div className={styles.uploadPanelInner}>
-      <div className={`flex items-center ${styles.uploadStepper}`}>
+      <div className={`flex items-center overflow-x-auto pb-2 ${styles.uploadStepper}`}>
         {STEPS.map((label, index) => (
-          <div key={label} className="flex items-center flex-1 last:flex-none">
-            <div className="flex flex-col items-center">
+          <div key={label} className="flex items-center flex-1 last:flex-none min-w-0">
+            <div className="flex flex-col items-center flex-shrink-0">
               <div className={`${styles.stepCircleBase} ${stepCircleClass(index)}`}>
                 {index < step ? <i className="ri-check-line text-sm" aria-hidden="true" /> : index + 1}
               </div>
-              <span className={`text-[10px] mt-1 font-medium whitespace-nowrap ${stepLabelClass(index)}`}>{label}</span>
+              <span className={`text-[9px] mt-1 font-medium whitespace-nowrap ${stepLabelClass(index)}`}>{label}</span>
             </div>
-            {index < STEPS.length - 1 && <div className={`flex-1 h-0.5 mx-2 mb-4 rounded-full ${stepConnectorClass(index)}`} />}
+            {index < STEPS.length - 1 && <div className={`flex-1 h-0.5 mx-1 mb-4 rounded-full min-w-[12px] ${stepConnectorClass(index)}`} />}
           </div>
         ))}
       </div>
@@ -165,7 +165,7 @@ export default function SingleUpload() {
             <p className="text-sm text-gray-400">Drag & drop or browse to upload your document</p>
           </div>
           <div
-            className={`border-2 border-dashed rounded-xl p-10 text-center transition-all cursor-pointer ${dragActive ? styles.fileDropBgActive : styles.fileDropBgIdle}`}
+            className={`border-2 border-dashed rounded-xl p-6 sm:p-10 text-center transition-all cursor-pointer ${dragActive ? styles.fileDropBgActive : styles.fileDropBgIdle}`}
             onDragOver={(event) => {
               event.preventDefault();
               setDragActive(true);
@@ -329,7 +329,7 @@ export default function SingleUpload() {
             <strong className="text-[#1a2340]">{file?.name}</strong> has been successfully uploaded
           </p>
           <p className="text-xs text-gray-400">Category: {selectedCat?.name} · {privacy}</p>
-          <div className="flex gap-3 justify-center mt-8">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <button
               type="button"
               onClick={() => router.push('/org-admin/upload-documents')}
@@ -356,11 +356,11 @@ export default function SingleUpload() {
       )}
 
       {step < 4 && (
-        <div className="flex items-center justify-between mt-8 pt-5 border-t border-gray-100">
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-8 pt-5 border-t border-gray-100">
           <button
             type="button"
             onClick={() => (step === 0 ? router.push('/org-admin/upload-documents') : setStep((current) => current - 1))}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap"
           >
             <i className="ri-arrow-left-line" aria-hidden="true" />
             {step === 0 ? 'Cancel' : 'Back'}
@@ -369,7 +369,7 @@ export default function SingleUpload() {
             <button
               type="button"
               onClick={next}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap bg-[#0097B2] hover:bg-[#007d95]"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap bg-[#0097B2] hover:bg-[#007d95]"
             >
               Continue
               <i className="ri-arrow-right-line" aria-hidden="true" />
@@ -379,7 +379,7 @@ export default function SingleUpload() {
               type="button"
               onClick={handleFinalUpload}
               disabled={uploading}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap disabled:opacity-70 bg-[#0097B2] hover:bg-[#007d95]"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium transition-colors whitespace-nowrap disabled:opacity-70 bg-[#0097B2] hover:bg-[#007d95]"
             >
               {uploading ? (
                 <><i className="ri-loader-4-line animate-spin" aria-hidden="true" />Uploading...</>
