@@ -6,9 +6,9 @@ import type { OrgUser } from '../types';
 const TEAL = '#0097B2';
 
 interface ResetPasswordModalProps {
-  user: OrgUser;
-  onClose: () => void;
-  onReset: () => void;
+  user?: OrgUser | null;
+  onClose?: () => void;
+  onReset?: () => void;
 }
 
 export default function ResetPasswordModal({ user, onClose, onReset }: ResetPasswordModalProps) {
@@ -17,6 +17,10 @@ export default function ResetPasswordModal({ user, onClose, onReset }: ResetPass
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  if (!user || !onClose || !onReset) {
+    return null;
+  }
 
   const validate = () => {
     const e: Record<string, string> = {};
