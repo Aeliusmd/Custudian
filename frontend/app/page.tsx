@@ -2,9 +2,9 @@ import Link from "next/link";
 
 const quickLinks = [
   { href: "/auth/signin", label: "Sign In", icon: "ri-login-box-line" },
-  { href: "/dashboard", label: "Dashboard", icon: "ri-dashboard-line" },
-  { href: "/org-admin/dashboard", label: "Org Admin", icon: "ri-building-2-line" },
   { href: "/super-admin/dashboard", label: "Super Admin", icon: "ri-shield-star-line" },
+  { href: "/user/dashboard", label: "User Profile", icon: "ri-user-line" },
+  { href: "/org-admin/dashboard", label: "Org Admin", icon: "ri-building-2-line" },
 ];
 
 export default function HomePage() {

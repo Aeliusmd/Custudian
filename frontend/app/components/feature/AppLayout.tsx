@@ -85,7 +85,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
             <div className="text-center">
               <h3 className="text-base font-semibold text-brand-navy mb-1">Sign out of MEDCUBE?</h3>
               <p className="text-sm text-brand-muted">
-                You'll be signed out and returned to the sign in page. Any unsaved changes will be lost.
+                You&apos;ll be signed out and returned to the sign in page. Any unsaved changes will be lost.
               </p>
             </div>
             <div className="flex gap-3 w-full mt-1">
@@ -220,7 +220,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm">
             <Link href="/dashboard" className="text-brand-muted hover:text-brand-cyan transition-colors">
-              MEDCUBE
+              MEDCUBE 
             </Link>
             <span className="text-brand-border">/</span>
             <div className="flex items-center gap-1.5 text-brand-navy font-medium">
