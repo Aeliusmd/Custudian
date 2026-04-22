@@ -20,6 +20,9 @@ export interface DocumentRecord {
   fileType: string;
   metadata: Record<string, string>;
   versions: DocumentVersion[];
+  contentSnippet?: string;
+  archivedBy?: string;
+  archivedDate?: string;
 }
 
 export const MOCK_CATEGORIES = [
@@ -37,6 +40,7 @@ export const MOCK_UPLOADERS = [
   'Mark Torres',
   'Nina Patel',
   'Ava Reynolds',
+  'James Smith',
 ] as const;
 
 export const MOCK_DOCUMENTS: DocumentRecord[] = [
@@ -61,6 +65,7 @@ export const MOCK_DOCUMENTS: DocumentRecord[] = [
       { id: 'v2', versionName: 'v2.1 Review', date: '2026-04-10', uploadedBy: 'James Whitfield', isCurrent: false },
       { id: 'v1', versionName: 'v1.0 Draft', date: '2026-04-09', uploadedBy: 'James Whitfield', isCurrent: false },
     ],
+    contentSnippet: 'This Service Agreement is entered into between Apex Corp and MedCube...',
   },
   {
     id: 'DOC-4820',
@@ -81,6 +86,7 @@ export const MOCK_DOCUMENTS: DocumentRecord[] = [
       { id: 'v2', versionName: 'v2.0 Approved', date: '2026-04-10', uploadedBy: 'Sarah Lin', isCurrent: true },
       { id: 'v1', versionName: 'v1.0 Draft', date: '2026-04-08', uploadedBy: 'Sarah Lin', isCurrent: false },
     ],
+    contentSnippet: 'Gross revenue for Q1 exceeded projections by 12% following the launch...',
   },
   {
     id: 'DOC-4819',
@@ -100,6 +106,7 @@ export const MOCK_DOCUMENTS: DocumentRecord[] = [
     versions: [
       { id: 'v1', versionName: 'v3.2', date: '2026-04-09', uploadedBy: 'Mark Torres', isCurrent: true },
     ],
+    contentSnippet: 'Employees are entitled to 20 days of paid annual leave per calendar year...',
   },
   {
     id: 'DOC-4818',
@@ -120,6 +127,7 @@ export const MOCK_DOCUMENTS: DocumentRecord[] = [
       { id: 'v2', versionName: 'v2.0 Final', date: '2026-04-09', uploadedBy: 'Nina Patel', isCurrent: true },
       { id: 'v1', versionName: 'v1.0 Draft', date: '2026-04-07', uploadedBy: 'Nina Patel', isCurrent: false },
     ],
+    contentSnippet: 'The audit confirmed full compliance with access control and data encryption policies...',
   },
   {
     id: 'DOC-4817',
@@ -140,6 +148,7 @@ export const MOCK_DOCUMENTS: DocumentRecord[] = [
       { id: 'v2', versionName: 'v2.0 Updated', date: '2026-04-10', uploadedBy: 'Ava Reynolds', isCurrent: true },
       { id: 'v1', versionName: 'v1.0 Initial', date: '2026-04-08', uploadedBy: 'Ava Reynolds', isCurrent: false },
     ],
+    contentSnippet: 'Standard operating procedures for laboratory equipment maintenance and safety...',
   },
   {
     id: 'DOC-4816',
@@ -159,5 +168,6 @@ export const MOCK_DOCUMENTS: DocumentRecord[] = [
     versions: [
       { id: 'v1', versionName: 'v1.0 Sent', date: '2026-04-07', uploadedBy: 'James Whitfield', isCurrent: true },
     ],
+    contentSnippet: 'Proposed digital transformation roadmap for Nimbus Ltd over the next 18 months...',
   },
 ];
